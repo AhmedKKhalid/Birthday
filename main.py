@@ -35,48 +35,41 @@ with col1:
 with col2:
     pass
 with col3:
-    from PIL import Image, ImageEnhance
-    time.sleep(12)
-    # Load the image
-    img = Image.open(r"aa.jpg").convert("RGBA")  # Ensure it has an alpha channel
     import base64
-    from io import BytesIO
 
-    # Load the image
 
-    # Reduce opacity to 50%
-    r, g, b, a = img.split()
-    a = a.point(lambda i: i * 0.5)
-    img_transparent = Image.merge("RGBA", (r, g, b, a))
+    def img_to_base64(path):
+        with open(path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
 
-    # Resize image to height 300px while keeping aspect ratio
-    width = int((400 / img_transparent.height) * img_transparent.width)
-    img_resized = img_transparent.resize((width, 600))
 
-    # Convert image to base64 for HTML embedding
-    buffered = BytesIO()
-    img_resized.save(buffered, format="PNG")
-    img_base64 = base64.b64encode(buffered.getvalue()).decode()
+    img_base64 = img_to_base64(r"C:\Users\Levi\PycharmProjects\pythonProject1\aa.jpg")
 
-    # Display image inside a rounded container
-    st.markdown(
-        f"""
-        <div style="
-            border-radius: 15px;
-            overflow: hidden;
-            width: 100%;
-            max-width: 600px; /* Limit max width on large screens */
-            min-height: 50px;
-            height: 300px;
-            padding: 30px; /* Increased padding slightly for better look */
-            justify-content: flex-start; /* Ensure content starts from the top, removing vertical centering */
+    st.markdown(f"""
+    <img src="data:image/jpeg;base64,{img_base64}" class="box-image">
+    """, unsafe_allow_html=True)
 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            margin: 16px; /* Added margin for mobile safety */
-        ">
-            <img src="data:image/png;base64,{img_base64}" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown("""
+    <style>
+    .container-box {
+        width: 100%;
+        max-width: 600px;
+        min-height: 50px;
+        max-height: 400px;
+        background: rgba(59, 60, 54, 0.6);
+        border-radius: 15px;
+        overflow: hidden;
+        padding: 30px;
+        margin: 16px;
+    }
+
+    .box-image {
+        width: 100%;
+        max-height: 460px;
+       margin: 16px;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 st.balloons()
