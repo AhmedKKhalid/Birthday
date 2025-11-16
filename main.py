@@ -52,7 +52,7 @@ with col3:
     st.markdown("""
     <style>
    .container-box {
-            width: 100%;
+            width: 80%;
             max-width: 500px; /* Limit max width on large screens */
             min-height: 50px; /* Set a minimum height instead of fixed 500px */
             background: rgba(59, 60, 54, 0.6); /* Semi-transparent dark green/gray */
