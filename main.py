@@ -33,37 +33,29 @@ col1, col2,col3 = st.columns(3)
 with col1:
     components.html(wd.html_code, height=550)
 with col2:
-    time.sleep(12)
+    time.sleep(21)
     components.html(
-    """
-     <body>
+   """
+       <body>
 
-    <div class="container-box" style="text-align: center;">
+    <div class="container-box">
         <!-- Content Container -->
 
         <div id="code">
             <!-- Each line is wrapped in a paragraph for sequential animation -->
             <p class="say">Level 25: New Skills, New Wins, Same Awesome You❤
-Time to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness️</p>
+Time to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness😉️</p>
         </div>
     </div>
 
     <style>
-        /* Make all text white and center it */
+        /* Make all text white */
         #code .say {
-            color: white;  
-            font-family: 'Consolas', 'Courier New', monospace;
+        text-align: center;
+            color: white;  /* text will be white */
+            font-family: 'Consolas', 'Courier New', monospace;;
             font-size: 18px;
             opacity: 0; /* initially invisible for animation */
-            display: inline-block; /* needed for proper centering */
-        }
-
-        /* Center the container vertically if desired */
-        .container-box {
-            display: flex;
-            justify-content: center; /* horizontal centering */
-            align-items: center; /* vertical centering */
-            height: 100vh; /* full viewport height */
         }
 
         /* Blinking cursor effect */
@@ -79,7 +71,7 @@ Time to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness️</p>
     </style>
 
     <script>
-        const TYPING_SPEED = 50; // Delay between characters
+        const TYPING_SPEED = 80; // Delay between characters
         const LINE_DELAY = 1000; // Delay between lines
 
         function typeLine(element, fullText) {
@@ -115,15 +107,13 @@ Time to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness️</p>
         window.onload = startTypingAnimation;
     </script>
 </body>
-
-        
-        
+ 
     """
     , height=550)
 
 with col3:
     import base64
-    time.sleep(18)
+    time.sleep(10)
     def img_to_base64(path):
         with open(path, "rb") as f:
             return base64.b64encode(f.read()).decode()

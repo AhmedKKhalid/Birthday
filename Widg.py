@@ -62,7 +62,7 @@ html_code = """
 
         <div id="code">
             <!-- Each line is wrapped in a paragraph for sequential animation -->
-            <p class="say">This website runs on love, joy, and a little bit of JavaScript🎈\nAll to celebrate you, "Fatma Magdy" on your special day ❤\nWhile we are always friends ❤  \nHope your day is filled with smiles, good vibes, and everything that makes you happiest ❤️😘</p>
+            <p class="say">This website runs on love, joy, and a little bit of Python🎈\nAll to celebrate you, "Fatma Magdy" on your special day ❤\nWhile we are always friends ❤  \nHope your day is filled with smiles, good vibes, and everything that makes you happiest ❤️😘</p>
         </div>
     </div>
 
@@ -70,7 +70,7 @@ html_code = """
         // Use a standard async function for the typing effect, replacing the old Jscex/typewriter logic.
         
         // Define the typing speed in milliseconds
-        const TYPING_SPEED = 50; // Delay between characters
+        const TYPING_SPEED = 80; // Delay between characters
         const LINE_DELAY = 1000; // Delay between lines
 
         /**
