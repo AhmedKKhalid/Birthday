@@ -36,7 +36,7 @@ with col2:
     pass
 with col3:
     from PIL import Image, ImageEnhance
-    time.sleep(1)
+    time.sleep(12)
     # Load the image
     img = Image.open(r"aa.jpg").convert("RGBA")  # Ensure it has an alpha channel
     import base64
@@ -50,7 +50,7 @@ with col3:
     img_transparent = Image.merge("RGBA", (r, g, b, a))
 
     # Resize image to height 300px while keeping aspect ratio
-    width = int((600 / img_transparent.height) * img_transparent.width)
+    width = int((400 / img_transparent.height) * img_transparent.width)
     img_resized = img_transparent.resize((width, 600))
 
     # Convert image to base64 for HTML embedding
@@ -64,7 +64,9 @@ with col3:
         <div style="
             border-radius: 20px;
             overflow: hidden;
-            width: {width}px;
+            width: 100%;
+             max-width: 600px; /* Limit max width on large screens */
+            min-height: 50px;
             height: 470px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             margin-top: 20px;
