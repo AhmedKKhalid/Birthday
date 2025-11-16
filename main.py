@@ -43,7 +43,7 @@ with col3:
             return base64.b64encode(f.read()).decode()
 
 
-    img_base64 = img_to_base64(r"C:\Users\Levi\PycharmProjects\pythonProject1\aa.jpg")
+    img_base64 = img_to_base64(r"aa.jpg")
 #C:\Users\Levi\PycharmProjects\pythonProject1\aa.jpg
     st.markdown(f"""
     <img src="data:image/jpeg;base64,{img_base64}" class="box-image">
