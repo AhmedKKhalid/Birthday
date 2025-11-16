@@ -64,12 +64,12 @@ with col3:
         }
 
     .box-image {
-        width: 100%;
+        width: 80%;
         max-height: 460px;
        margin: 16px;
         object-fit: cover;
         border-radius: 15px;
-
+ justify-content: flex-center;
 
     }
     </style>
