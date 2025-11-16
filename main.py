@@ -43,8 +43,7 @@ with col2:
 
         <div id="code">
             <!-- Each line is wrapped in a paragraph for sequential animation -->
-            <p class="say">Level 25: New Skills, New Wins, Same Awesome You❤
-Time to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness😉️</p>
+            <p class="say">Level 25: New Skills, New Wins, Same Awesome You ❤\nTime to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness😉️</p>
         </div>
     </div>
 
