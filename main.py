@@ -53,7 +53,7 @@ with col3:
     <style>
    .container-box {
             width: 100%;
-            max-width: 600px; /* Limit max width on large screens */
+            max-width: 500px; /* Limit max width on large screens */
             min-height: 50px; /* Set a minimum height instead of fixed 500px */
             background: rgba(59, 60, 54, 0.6); /* Semi-transparent dark green/gray */
             border-radius: 15px;
