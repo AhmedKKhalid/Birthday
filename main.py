@@ -139,7 +139,7 @@ with col3:
         }
 
     .box-image {
-        width: 100%;
+        width: 92%;
         max-height: 460px;
        margin: 16px;
         object-fit: cover;
