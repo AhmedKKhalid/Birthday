@@ -62,14 +62,17 @@ with col3:
     st.markdown(
         f"""
         <div style="
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
             width: 100%;
-             max-width: 600px; /* Limit max width on large screens */
+            max-width: 600px; /* Limit max width on large screens */
             min-height: 50px;
-            height: 470px;
+            height: 300px;
+            padding: 30px; /* Increased padding slightly for better look */
+            justify-content: flex-start; /* Ensure content starts from the top, removing vertical centering */
+
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            margin-top: 20px;
+            margin: 16px; /* Added margin for mobile safety */
         ">
             <img src="data:image/png;base64,{img_base64}" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
