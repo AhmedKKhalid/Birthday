@@ -33,11 +33,97 @@ col1, col2,col3 = st.columns(3)
 with col1:
     components.html(wd.html_code, height=550)
 with col2:
-    pass
+    time.sleep(12)
+    components.html(
+    """
+     <body>
+
+    <div class="container-box" style="text-align: center;">
+        <!-- Content Container -->
+
+        <div id="code">
+            <!-- Each line is wrapped in a paragraph for sequential animation -->
+            <p class="say">Level 25: New Skills, New Wins, Same Awesome You❤
+Time to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness️</p>
+        </div>
+    </div>
+
+    <style>
+        /* Make all text white and center it */
+        #code .say {
+            color: white;  
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 18px;
+            opacity: 0; /* initially invisible for animation */
+            display: inline-block; /* needed for proper centering */
+        }
+
+        /* Center the container vertically if desired */
+        .container-box {
+            display: flex;
+            justify-content: center; /* horizontal centering */
+            align-items: center; /* vertical centering */
+            height: 100vh; /* full viewport height */
+        }
+
+        /* Blinking cursor effect */
+        .cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0; }
+        }
+    </style>
+
+    <script>
+        const TYPING_SPEED = 50; // Delay between characters
+        const LINE_DELAY = 1000; // Delay between lines
+
+        function typeLine(element, fullText) {
+            return new Promise(resolve => {
+                element.style.opacity = 1; // Make the line visible
+                element.classList.add('cursor');
+                element.textContent = ''; // Clear content for typing effect
+                
+                let i = 0;
+                const interval = setInterval(() => {
+                    if (i < fullText.length) {
+                        element.textContent += fullText.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(interval);
+                        element.classList.remove('cursor');
+                        resolve();
+                    }
+                }, TYPING_SPEED);
+            });
+        }
+
+        async function startTypingAnimation() {
+            const lines = document.querySelectorAll('#code .say');
+            
+            for (let lineElement of lines) {
+                const fullText = lineElement.textContent;
+                await typeLine(lineElement, fullText);
+                await new Promise(resolve => setTimeout(resolve, LINE_DELAY));
+            }
+        }
+
+        window.onload = startTypingAnimation;
+    </script>
+</body>
+
+        
+        
+    """
+    , height=550)
+
 with col3:
     import base64
-
-
+    time.sleep(18)
     def img_to_base64(path):
         with open(path, "rb") as f:
             return base64.b64encode(f.read()).decode()
