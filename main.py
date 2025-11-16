@@ -109,7 +109,7 @@ Time to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness😉️</p>
 </body>
  
     """
-    , height=550)
+    , )
 
 with col3:
     import base64
