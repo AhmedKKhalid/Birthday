@@ -52,14 +52,14 @@ with col3:
     st.markdown("""
     <style>
    .container-box {
-            width: 80%;
+            width: 60%;
             max-width: 500px; /* Limit max width on large screens */
             min-height: 50px; /* Set a minimum height instead of fixed 500px */
             background: rgba(59, 60, 54, 0.6); /* Semi-transparent dark green/gray */
             border-radius: 15px;
             overflow: hidden;
             padding: 30px; /* Increased padding slightly for better look */
-            justify-content: flex-start; /* Ensure content starts from the top, removing vertical centering */
+            justify-content: flex-center; /* Ensure content starts from the top, removing vertical centering */
             margin: 16px; /* Added margin for mobile safety */
         }
 
