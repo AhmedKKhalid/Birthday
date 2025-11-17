@@ -167,7 +167,7 @@ components.html(
 
          <div id="code">
              <!-- Each line is wrapped in a paragraph for sequential animation -->
-             <p class="say"> Software engineer powered by love, coffee, and questionable programming skills 😝</p>
+             <p class="say"> Software engineer powered by algorithms, coffee, and questionable programming skills 😝</p>
          </div>
      </div>
 
