@@ -9,6 +9,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import Widg as wd
 import time
+import base64
 st.set_page_config(layout="wide")
 
 page_element="""
@@ -29,16 +30,18 @@ st.markdown(page_element, unsafe_allow_html=True)
 st.balloons()
 time.sleep(2)
 
-audio_file = r"aud.mp3"
 
-# Autoplay hidden audio
+audio_file = open("music.mp3", "rb").read()
+audio_bytes = base64.b64encode(audio_file).decode()
+
 audio_html = f"""
-    <audio autoplay loop hidden>
-        <source src="{audio_file}" type="audio/mpeg">
+    <audio autoplay loop>
+        <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
     </audio>
 """
 
 st.markdown(audio_html, unsafe_allow_html=True)
+
 col1, col2,col3 = st.columns(3)
 
 with col1:
@@ -122,7 +125,7 @@ with col2:
     , )
 
 with col3:
-    import base64
+
     time.sleep(10)
     def img_to_base64(path):
         with open(path, "rb") as f:
