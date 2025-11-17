@@ -26,7 +26,7 @@ audio_html = f"""
         <source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3">
     </audio>
     """
-components.html(audio_html)
+st.markdown(audio_html)
 # Play audio with Streamlit
 # Read local audio file
 
