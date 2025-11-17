@@ -12,16 +12,24 @@ import time
 import base64
 st.set_page_config(layout="wide")
 
-audio_file = open(r"aud.mp3", "rb").read()
-audio_bytes = base64.b64encode(audio_file).decode()
+audio_file = "aud.mp3"
 
+
+# Read audio file and encode in base64
+with open(audio_file, "rb") as f:
+    audio_bytes = f.read()
+    audio_base64 = base64.b64encode(audio_bytes).decode()
+
+# HTML to autoplay audio in background
 audio_html = f"""
-    <audio loop autoplay>
-        <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
-    </audio>
+<audio autoplay loop>
+    <source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3">
+</audio>
 """
 
+# Inject HTML into Streamlit
 st.markdown(audio_html, unsafe_allow_html=True)
+
 page_element="""
 <style>
 [data-testid="stAppViewContainer"]{
