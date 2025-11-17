@@ -13,7 +13,6 @@ import base64
 st.set_page_config(layout="wide")
 
 
-st.audio("aud.mp3", autoplay=True)
 
 
 page_element="""
@@ -28,7 +27,7 @@ page_element="""
 </style>
 """
 
- 
+
 
 st.markdown(page_element, unsafe_allow_html=True)
 st.balloons()
