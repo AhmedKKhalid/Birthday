@@ -28,7 +28,6 @@ page_element="""
 
 st.markdown(page_element, unsafe_allow_html=True)
 st.balloons()
-time.sleep(2)
 
 
 audio_file = open("aud.mp3", "rb").read()
@@ -43,6 +42,7 @@ audio_html = f"""
 st.markdown(audio_html, unsafe_allow_html=True)
 
 col1, col2,col3 = st.columns(3)
+time.sleep(2)
 
 with col1:
     components.html(wd.html_code, height=550)
