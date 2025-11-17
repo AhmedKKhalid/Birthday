@@ -157,7 +157,7 @@ with col3:
     </style>
     """, unsafe_allow_html=True)
 
-time.sleep(3)
+time.sleep(1)
 components.html(
     """
         <body>
