@@ -12,10 +12,20 @@ import time
 import base64
 st.set_page_config(layout="wide")
 
+audio_file = open(r"aud.mp3", "rb").read()
+audio_bytes = base64.b64encode(audio_file).decode()
 
-st.audio("aud.mp3", autoplay=True)
+audio_html = f"""
+<audio id="myAudio" loop>
+  <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
+</audio>
 
+<button onclick="document.getElementById('myAudio').play()">Play Audio</button>
+"""
 
+st.markdown(audio_html, unsafe_allow_html=True)
+
+st.markdown(audio_html, unsafe_allow_html=True)
 page_element="""
 <style>
 [data-testid="stAppViewContainer"]{
