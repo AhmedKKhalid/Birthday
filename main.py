@@ -156,4 +156,82 @@ with col3:
     }
     </style>
     """, unsafe_allow_html=True)
+
+time.sleep(3)
+components.html(
+    """
+        <body>
+
+     <div class="container-box">
+         <!-- Content Container -->
+
+         <div id="code">
+             <!-- Each line is wrapped in a paragraph for sequential animation -->
+             <p class="say"> Software engineer powered by love, coffee, and questionable programming skills 😝</p>
+         </div>
+     </div>
+
+     <style>
+         /* Make all text white */
+         #code .say {
+         text-align: center;
+             color: white;  /* text will be white */
+             font-family: 'Consolas', 'Courier New', monospace;;
+             font-size: 18px;
+             opacity: 0; /* initially invisible for animation */
+         }
+
+         /* Blinking cursor effect */
+         .cursor::after {
+             content: '|';
+             animation: blink 1s infinite;
+         }
+
+         @keyframes blink {
+             0%, 50%, 100% { opacity: 1; }
+             25%, 75% { opacity: 0; }
+         }
+     </style>
+
+     <script>
+         const TYPING_SPEED = 80; // Delay between characters
+         const LINE_DELAY = 1000; // Delay between lines
+
+         function typeLine(element, fullText) {
+             return new Promise(resolve => {
+                 element.style.opacity = 1; // Make the line visible
+                 element.classList.add('cursor');
+                 element.textContent = ''; // Clear content for typing effect
+
+                 let i = 0;
+                 const interval = setInterval(() => {
+                     if (i < fullText.length) {
+                         element.textContent += fullText.charAt(i);
+                         i++;
+                     } else {
+                         clearInterval(interval);
+                         element.classList.remove('cursor');
+                         resolve();
+                     }
+                 }, TYPING_SPEED);
+             });
+         }
+
+         async function startTypingAnimation() {
+             const lines = document.querySelectorAll('#code .say');
+
+             for (let lineElement of lines) {
+                 const fullText = lineElement.textContent;
+                 await typeLine(lineElement, fullText);
+                 await new Promise(resolve => setTimeout(resolve, LINE_DELAY));
+             }
+         }
+
+         window.onload = startTypingAnimation;
+     </script>
+ </body>
+
+     """
+    , )
+
 st.balloons()
