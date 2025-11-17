@@ -12,25 +12,6 @@ import time
 import base64
 st.set_page_config(layout="wide")
 
-audio_file = r"aud.mp3"
-
-
-audio_bytes = open(audio_file, "rb").read()
-with open(audio_file, "rb") as f:
-    audio_bytes = f.read()
-    audio_base64 = base64.b64encode(audio_bytes).decode()
-
-# Play audio on button click
-audio_html = f"""
-    <audio autoplay loop>
-        <source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3">
-    </audio>
-    """
-st.markdown(audio_html,unsafe_allow_html=True)
-# Play audio with Streamlit
-# Read local audio file
-
-
 
 page_element="""
 <style>
@@ -138,7 +119,7 @@ with col2:
 
 with col3:
 
-    time.sleep(10)
+    time.sleep(15)
     def img_to_base64(path):
         with open(path, "rb") as f:
             return base64.b64encode(f.read()).decode()
