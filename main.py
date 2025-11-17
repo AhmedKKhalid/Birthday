@@ -16,10 +16,14 @@ audio_file = open(r"aud.mp3", "rb").read()
 audio_bytes = base64.b64encode(audio_file).decode()
 
 audio_html = f"""
-    <audio loop autoplay muted >
-        <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
-    </audio>
+<audio id="myAudio" loop>
+  <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
+</audio>
+
+<button onclick="document.getElementById('myAudio').play()">Play Audio</button>
 """
+
+st.markdown(audio_html, unsafe_allow_html=True)
 
 st.markdown(audio_html, unsafe_allow_html=True)
 page_element="""
