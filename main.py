@@ -12,7 +12,7 @@ import time
 import base64
 st.set_page_config(layout="wide")
 
-audio_file = r"C:\Users\Levi\PycharmProjects\pythonProject1\aud.mp3"
+audio_file = r"aud.mp3"
 
 
 audio_bytes = open(audio_file, "rb").read()
