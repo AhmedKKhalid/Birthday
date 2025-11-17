@@ -34,7 +34,7 @@ audio_file = open("aud.mp3", "rb").read()
 audio_bytes = base64.b64encode(audio_file).decode()
 
 audio_html = f"""
-    <audio autoplay loop>
+    <audio controls>
         <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
     </audio>
 """
