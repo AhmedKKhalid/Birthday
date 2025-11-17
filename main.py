@@ -27,7 +27,18 @@ page_element="""
 
 st.markdown(page_element, unsafe_allow_html=True)
 st.balloons()
+time.sleep(2)
 
+audio_file = r"aud.mp3"
+
+# Autoplay hidden audio
+audio_html = f"""
+    <audio autoplay loop hidden>
+        <source src="{audio_file}" type="audio/mpeg">
+    </audio>
+"""
+
+st.markdown(audio_html, unsafe_allow_html=True)
 col1, col2,col3 = st.columns(3)
 
 with col1:
