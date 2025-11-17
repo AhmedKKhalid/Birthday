@@ -12,6 +12,16 @@ import time
 import base64
 st.set_page_config(layout="wide")
 
+audio_file = open(r"aud.mp3", "rb").read()
+audio_bytes = base64.b64encode(audio_file).decode()
+
+audio_html = f"""
+    <audio loop>
+        <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
+    </audio>
+"""
+
+st.markdown(audio_html, unsafe_allow_html=True)
 page_element="""
 <style>
 [data-testid="stAppViewContainer"]{
@@ -30,16 +40,7 @@ st.markdown(page_element, unsafe_allow_html=True)
 st.balloons()
 
 
-audio_file = open("aud.mp3", "rb").read()
-audio_bytes = base64.b64encode(audio_file).decode()
 
-audio_html = f"""
-    <audio controls>
-        <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
-    </audio>
-"""
-
-st.markdown(audio_html, unsafe_allow_html=True)
 
 col1, col2,col3 = st.columns(3)
 time.sleep(2)
