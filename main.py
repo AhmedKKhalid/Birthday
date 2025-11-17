@@ -12,23 +12,23 @@ import time
 import base64
 st.set_page_config(layout="wide")
 
-audio_file = "aud.mp3"
+audio_file = r"C:\Users\Levi\PycharmProjects\pythonProject1\aud.mp3"
 
 
 audio_bytes = open(audio_file, "rb").read()
+with open(audio_file, "rb") as f:
+    audio_bytes = f.read()
+    audio_base64 = base64.b64encode(audio_bytes).decode()
 
+# Play audio on button click
+audio_html = f"""
+    <audio autoplay loop>
+        <source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3">
+    </audio>
+    """
+components.html(audio_html)
 # Play audio with Streamlit
-st.audio(audio_bytes, format="audio/mp3", start_time=0)
-
-# Hide the audio player with CSS
-hide_streamlit_style = """
-    <style>
-    audio {
-        display: none;
-    }
-    </style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+# Read local audio file
 
 
 
@@ -57,6 +57,7 @@ time.sleep(2)
 
 with col1:
     components.html(wd.html_code, height=550)
+
 with col2:
     time.sleep(21)
     components.html(
