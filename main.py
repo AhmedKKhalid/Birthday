@@ -233,5 +233,5 @@ components.html(
 
      """
     , )
-
+time.sleep(4)
 st.balloons()
