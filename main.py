@@ -119,7 +119,7 @@ with col2:
 
 with col3:
 
-    time.sleep(15)
+    time.sleep(11)
     def img_to_base64(path):
         with open(path, "rb") as f:
             return base64.b64encode(f.read()).decode()
