@@ -31,15 +31,22 @@ st.balloons()
 time.sleep(2)
 
 
-audio_file = open("aud.mp3", "rb").read()
-audio_bytes = base64.b64encode(audio_file).decode()
+audio_file = "aud.mp3"
 
 audio_html = f"""
-    <audio autoplay loop>
-        <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
-    </audio>
-"""
+<audio id="bg-music" autoplay loop muted>
+  <source src="{audio_file}" type="audio/mpeg">
+</audio>
 
+<script>
+    const audio = document.getElementById("bg-music");
+    // Try to unmute after user clicks anywhere
+    document.addEventListener('click', () => {{
+        audio.muted = false;
+        audio.play();
+    }});
+</script>
+"""
 st.markdown(audio_html, unsafe_allow_html=True)
 
 col1, col2,col3 = st.columns(3)
