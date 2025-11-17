@@ -13,6 +13,7 @@ import base64
 st.set_page_config(layout="wide")
 
 
+st.audio("aud.mp3", autoplay=True)
 
 
 page_element="""
