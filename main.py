@@ -16,7 +16,7 @@ audio_file = open(r"aud.mp3", "rb").read()
 audio_bytes = base64.b64encode(audio_file).decode()
 
 audio_html = f"""
-    <audio loop>
+    <audio loop autoplay muted >
         <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
     </audio>
 """
