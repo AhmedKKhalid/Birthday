@@ -31,7 +31,7 @@ st.balloons()
 time.sleep(2)
 
 
-audio_file = open("music.mp3", "rb").read()
+audio_file = open("aud.mp3", "rb").read()
 audio_bytes = base64.b64encode(audio_file).decode()
 
 audio_html = f"""
