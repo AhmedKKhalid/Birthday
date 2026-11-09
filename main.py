@@ -12,6 +12,7 @@ import time
 import base64
 st.set_page_config(layout="wide")
 
+
 image_path = r"Gemini_Generated_Image_lyf48xlyf48xlyf4.jpg"
 
 with open(image_path, "rb") as image_file:
@@ -60,7 +61,7 @@ with col2:
 
         <div id="code">
             <!-- Each line is wrapped in a paragraph for sequential animation -->
-            <p class="say">Level 25: New Skills, New Wins, Same Awesome You ❤\nTime to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness😉️</p>
+            <p class="say">Level 26: New Skills, New Wins, Same Awesome You ❤\nTime to Shine, Laugh, and Make Everyone Jealous of Your Awesomeness😉️</p>
         </div>
     </div>
 
@@ -135,7 +136,7 @@ with col3:
             return base64.b64encode(f.read()).decode()
 
 
-    img_base64 = img_to_base64(r"aa.jpg")
+    img_base64 = img_to_base64(r"aa.jpg" )
 #C:\Users\Levi\PycharmProjects\pythonProject1\aa.jpg
     st.markdown(f"""
     <img src="data:image/jpeg;base64,{img_base64}" class="box-image">
