@@ -62,7 +62,7 @@ html_code = """
 
         <div id="code">
             <!-- Each line is wrapped in a paragraph for sequential animation -->
-            <p class="say">This website runs on love, joy, and a little bit of Python🎈\nAll to celebrate you, "Fatma Magdy" on your special day ❤\nWhile we are always friends ❤  \nHope your day is filled with smiles, good vibes, and everything that makes you happiest ❤️😘</p>
+            <p class="say">This website runs on love, joy, and a little bit of Python🎈\nAll to celebrate you, my beautiful Arnob🐇💕, Fatma Magdy on your special day ❤\nYou're not just someone special in my life; you're the reason behind so many of my smiles.  \nMay your day be as beautiful as your heart, filled with endless happiness, sweet moments, and everything that makes you smile. ❤️😘 \nAnd remember, no matter what, you'll always have a special place in my heart. ❤️</p>
         </div>
     </div>
 
