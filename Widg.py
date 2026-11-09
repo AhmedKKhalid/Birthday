@@ -133,4 +133,4 @@ And remember, no matter what, you'll always have a special place in my heart. ‚ù
 # Render HTML inside Streamlit.
 # `height` is the starting/fallback height; the script inside the HTML
 # resizes the iframe automatically as the text is typed.
-components.html(html_code, height=200, scrolling=False)
+#components.html(html_code, height=200, scrolling=False)
