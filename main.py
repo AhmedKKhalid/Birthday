@@ -49,7 +49,7 @@ time.sleep(2)
 
 with col1:
     #components.html(wd.html_code, height=550)
-   import html
+    import html
     import time
     import streamlit as st
     
