@@ -67,7 +67,7 @@ with col1:
     ]
     message = "\n".join(lines)
     
-    TYPING_DELAY = 0.04   # seconds between updates
+    TYPING_DELAY = 0.5   # seconds between updates
     CHARS_PER_STEP = 2    # characters added per update
     
     # ---------------------------------------------------------------
