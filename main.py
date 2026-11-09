@@ -106,6 +106,65 @@ def typing_iframe(text: str, height: int = 160):
 
 
 # ---------------------------------------------------------------
+# Music that starts INSIDE the click event (the only way browsers
+# reliably allow sound). A tiny script is injected into the main page;
+# it listens for the first click, plays the looping audio at that exact
+# moment, and adds a small mute/unmute button that stays on the page.
+# ---------------------------------------------------------------
+MUSIC_HTML = """
+<script type="text/plain" id="payload">
+(function () {
+    if (window.__bdArmed) return;
+    window.__bdArmed = true;
+
+    var audio = new Audio("data:audio/mpeg;base64,__B64__");
+    audio.loop = true;
+    audio.preload = "auto";
+    window.__bdAudio = audio;
+
+    function makeToggle() {
+        if (document.getElementById("bd-music-btn")) return;
+        var b = document.createElement("button");
+        b.id = "bd-music-btn";
+        b.textContent = "\\uD83D\\uDD0A";
+        b.title = "Music on/off";
+        b.style.cssText = "position:fixed;left:16px;bottom:16px;z-index:9999;" +
+            "width:48px;height:48px;border-radius:50%;" +
+            "border:2px solid rgba(255,255,255,.7);background:rgba(59,60,54,.7);" +
+            "color:#fff;font-size:22px;cursor:pointer;backdrop-filter:blur(6px);" +
+            "box-shadow:0 0 18px rgba(244,114,182,.5)";
+        b.onclick = function (e) {
+            e.stopPropagation();
+            if (audio.paused) { audio.play(); b.textContent = "\\uD83D\\uDD0A"; }
+            else { audio.pause(); b.textContent = "\\uD83D\\uDD07"; }
+        };
+        document.body.appendChild(b);
+    }
+
+    function start() {
+        audio.play().catch(function () {});
+        makeToggle();
+    }
+    document.addEventListener("click", start, { capture: true, once: true });
+})();
+</script>
+<script>
+    var code = document.getElementById("payload").textContent;
+    var s = window.parent.document.createElement("script");
+    s.textContent = code;
+    window.parent.document.head.appendChild(s);
+</script>
+"""
+
+
+def arm_music(path: str):
+    if not os.path.exists(path):
+        st.warning(f"Audio file not found: {path}")
+        return
+    components.html(MUSIC_HTML.replace("__B64__", img_to_base64(path)), height=0)
+
+
+# ---------------------------------------------------------------
 # Page background
 # ---------------------------------------------------------------
 image_path = r"Gemini_Generated_Image_lyf48xlyf48xlyf4.jpg"
@@ -177,6 +236,7 @@ if not st.session_state.started:
         """,
         unsafe_allow_html=True,
     )
+    arm_music("aud.mp3")  # starts looping the moment she clicks anywhere/the button
     if st.button("🎁 Open your gift"):
         st.session_state.started = True
         st.rerun()
@@ -187,31 +247,7 @@ st.balloons()
 # ---------------------------------------------------------------
 # Music: starts right after the click on "Open your gift" and loops
 # ---------------------------------------------------------------
-AUDIO_PATH = "aud.mp3"
-
-st.markdown(
-    """
-    <style>
-    @keyframes audio-in { from { opacity: 0; } to { opacity: .9; } }
-    [data-testid="stAudio"] {
-        position: fixed; left: 16px; bottom: 16px; width: 280px; z-index: 60;
-        border-radius: 30px; animation: audio-in 2s ease-out both;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-if os.path.exists(AUDIO_PATH):
-    try:
-        st.audio(AUDIO_PATH, format="audio/mpeg", autoplay=True, loop=True)
-    except TypeError:  # older Streamlit versions without loop / autoplay
-        try:
-            st.audio(AUDIO_PATH, format="audio/mpeg", autoplay=True)
-        except TypeError:
-            st.audio(AUDIO_PATH, format="audio/mpeg")
-else:
-    st.warning(f"Audio file not found: {AUDIO_PATH}")
+#   See arm_music() above: the audio is started by the click itself.
 
 # ---------------------------------------------------------------
 # Birthday FX: pure-CSS animation system
