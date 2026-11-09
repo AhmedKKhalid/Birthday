@@ -1,4 +1,6 @@
+
 html_code = """
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,89 +9,98 @@ html_code = """
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Define the custom font and basic body styles */
         body {
             font-family: 'Inter', sans-serif;
+            margin: 0;
             display: flex;
+            justify-content: center;   /* center the box horizontally */
+            align-items: flex-start;   /* don't stretch it vertically */
         }
-        
-        /* Custom styles for the transparent container */
+ 
         .container-box {
             width: 100%;
-            max-width: 600px; /* Limit max width on large screens */
-            min-height: 50px; /* Set a minimum height instead of fixed 500px */
-            background: rgba(59, 60, 54, 0.6); /* Semi-transparent dark green/gray */
+            max-width: 600px;
+            height: auto;              /* grows with the text */
+            min-height: 50px;
+            background: rgba(59, 60, 54, 0.6);
             border-radius: 15px;
-            overflow: hidden;
-            padding: 30px; /* Increased padding slightly for better look */
-            justify-content: flex-start; /* Ensure content starts from the top, removing vertical centering */
-            margin: 16px; /* Added margin for mobile safety */
+            padding: 30px;
+            margin: 16px;
+            box-sizing: border-box;
+            /* no overflow:hidden, so nothing gets clipped */
         }
-
-        /* Styling for the content area */
+ 
         #code {
-            color: #f3f4f6; /* Light gray text */
-            font-family: 'Consolas', 'Courier New', monospace; /* Monospace font for "typing" look */
-            white-space: pre-wrap; /* Allows line breaks */
-            line-height: 1.5; /* ADJUSTED: Reduced from 1.8 to 1.5 for tighter line spacing */
-            font-size: 1.125rem; /* text-lg */
-            margin-tio: 0px;
+            color: #f3f4f6;
+            font-family: 'Consolas', 'Courier New', monospace;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            font-size: 1.125rem;
+            margin-top: 0;
         }
-        
-        /* Hidden initially, revealed by JS */
+ 
         .say {
             display: block;
             opacity: 0;
+            margin: 0;
         }
-
-        /* The cursor effect */
+ 
         .cursor::after {
             content: '|';
             animation: blink 1s step-start infinite;
-            color: #fcd34d; /* Yellow cursor */
+            color: #fcd34d;
         }
-
+ 
         @keyframes blink {
             50% { opacity: 0; }
         }
     </style>
 </head>
 <body>
-
-    <div class="container-box">
-        <!-- Content Container -->
+ 
+    <div class="container-box" id="box">
         <h1 class="h1-title text-2xl font-extrabold text-lime-300 mb-3 text-center">Fatma Magdy's Birthday!</h1>
-
+ 
         <div id="code">
-            <!-- Each line is wrapped in a paragraph for sequential animation -->
-            <p class="say">This website runs on love, joy, and a little bit of Python🎈\nAll to celebrate you, my beautiful Arnob🐇💕, Fatma Magdy on your special day ❤\nYou're not just someone special in my life; you're the reason behind so many of my smiles.  \nMay your day be as beautiful as your heart, filled with endless happiness, sweet moments, and everything that makes you smile. ❤️😘 \nAnd remember, no matter what, you'll always have a special place in my heart. ❤️</p>
+            <p class="say">This website runs on love, joy, and a little bit of Python🎈
+All to celebrate you, my beautiful Arnob🐇💕, Fatma Magdy on your special day ❤
+You're not just someone special in my life; you're the reason behind so many of my smiles.
+May your day be as beautiful as your heart, filled with endless happiness, sweet moments, and everything that makes you smile. ❤️😘
+And remember, no matter what, you'll always have a special place in my heart. ❤️</p>
         </div>
     </div>
-
+ 
     <script>
-        // Use a standard async function for the typing effect, replacing the old Jscex/typewriter logic.
-        
-        // Define the typing speed in milliseconds
-        const TYPING_SPEED = 80; // Delay between characters
-        const LINE_DELAY = 1000; // Delay between lines
-
-        /**
-         * Simulates the typing of a single line.
-         * @param {HTMLElement} element The paragraph element to type into.
-         * @param {string} fullText The complete text content.
-         * @returns {Promise<void>} A promise that resolves when the line is fully typed.
-         */
+        const TYPING_SPEED = 80;   // delay between characters (ms)
+        const LINE_DELAY = 1000;   // delay between lines (ms)
+ 
+        /** Resize the Streamlit iframe to match the content height. */
+        function resizeFrame() {
+            const box = document.getElementById('box');
+            const height = box.offsetHeight + 40; // box + margins
+            try {
+                if (window.frameElement) {
+                    window.frameElement.style.height = height + 'px';
+                    window.frameElement.setAttribute('height', height);
+                }
+            } catch (e) {
+                /* ignore if the iframe can't be accessed */
+            }
+        }
+ 
         function typeLine(element, fullText) {
             return new Promise(resolve => {
-                element.style.opacity = 1; // Make the line visible
+                element.style.opacity = 1;
                 element.classList.add('cursor');
-                element.textContent = ''; // Clear content for typing effect
-                
+                element.textContent = '';
+ 
+                const chars = Array.from(fullText); // keeps emojis intact
                 let i = 0;
                 const interval = setInterval(() => {
-                    if (i < fullText.length) {
-                        element.textContent += fullText.charAt(i);
+                    if (i < chars.length) {
+                        element.textContent += chars[i];
                         i++;
+                        resizeFrame(); // grow as the text grows
                     } else {
                         clearInterval(interval);
                         element.classList.remove('cursor');
@@ -98,33 +109,28 @@ html_code = """
                 }, TYPING_SPEED);
             });
         }
-
-        /**
-         * Initiates the sequence of typing all lines.
-         */
+ 
         async function startTypingAnimation() {
             const lines = document.querySelectorAll('#code .say');
-            
+ 
             for (let lineElement of lines) {
-                // Get the original content before it's cleared
                 const fullText = lineElement.textContent;
-                
-                // Wait for the current line to finish typing
                 await typeLine(lineElement, fullText);
-                
-                // Wait for a short delay before starting the next line
                 await new Promise(resolve => setTimeout(resolve, LINE_DELAY));
             }
         }
-
-        // Start the animation when the window loads
-        window.onload = startTypingAnimation;
-
+ 
+        window.onload = () => {
+            resizeFrame();
+            startTypingAnimation();
+        };
+        window.addEventListener('resize', resizeFrame);
     </script>
 </body>
 </html>
 """
-
-# Render HTML inside Streamlit
-
-
+ 
+# Render HTML inside Streamlit.
+# `height` is the starting/fallback height; the script inside the HTML
+# resizes the iframe automatically as the text is typed.
+components.html(html_code, height=200, scrolling=False)
