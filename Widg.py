@@ -1,9 +1,11 @@
-import math
+import html
+import time
 import streamlit as st
-import streamlit.components.v1 as components
+
+st.set_page_config(page_title="Special Greeting", layout="centered")
 
 # ---------------------------------------------------------------
-# 1) The message (edit the text here)
+# Message (edit the text here)
 # ---------------------------------------------------------------
 lines = [
     "This website runs on love, joy, and a little bit of Python🎈",
@@ -14,100 +16,73 @@ lines = [
 ]
 message = "\n".join(lines)
 
+TYPING_DELAY = 0.04   # seconds between updates
+CHARS_PER_STEP = 2    # characters added per update
+
 # ---------------------------------------------------------------
-# 2) The HTML page (the box grows with the text via height:auto)
+# Styles (rendered directly in the page, NOT in an iframe,
+# so the box grows naturally with its content)
 # ---------------------------------------------------------------
-html_template = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Greeting</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+st.markdown(
+    """
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            background: transparent;   /* the iframe itself stays invisible */
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;   /* box keeps its own height, never stretched */
-        }
-
         .container-box {
             width: 100%;
             max-width: 600px;
-            height: auto;              /* grows with the text */
-            min-height: 50px;
+            margin: 16px auto;
+            padding: 30px;
+            box-sizing: border-box;
             background: rgba(59, 60, 54, 0.6);
             border-radius: 15px;
-            padding: 30px;
-            margin: 16px;
-            box-sizing: border-box;
+            height: auto;            /* grows with the text */
+            min-height: 50px;
         }
-
-        #code {
+        .container-box h1 {
+            color: #bef264;          /* lime */
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 0 0 12px 0;
+            padding: 0;
+        }
+        .typed-text {
             color: #f3f4f6;
             font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.125rem;
+            line-height: 1.5;
             white-space: pre-wrap;
             word-break: break-word;
-            line-height: 1.5;
-            font-size: 1.125rem;
-            margin-top: 0;
         }
-
         .cursor::after {
             content: '|';
-            animation: blink 1s step-start infinite;
             color: #fcd34d;
+            animation: blink 1s step-start infinite;
         }
-
         @keyframes blink { 50% { opacity: 0; } }
     </style>
-</head>
-<body>
-    <div class="container-box">
-        <h1 class="text-2xl font-extrabold text-lime-300 mb-3 text-center">Fatma Magdy's Birthday!</h1>
-        <div id="code" class="cursor"></div>
-    </div>
-
-    <script>
-        const TYPING_SPEED = 80;
-        const FULL_TEXT = __MESSAGE__;   // injected from Python
-
-        const el = document.getElementById('code');
-        const chars = Array.from(FULL_TEXT);   // keeps emojis intact
-        let i = 0;
-
-        const timer = setInterval(() => {
-            if (i < chars.length) {
-                el.textContent += chars[i++];   // the box grows as text is added
-            } else {
-                clearInterval(timer);
-                el.classList.remove('cursor');
-            }
-        }, TYPING_SPEED);
-    </script>
-</body>
-</html>
-"""
-
-import json
-html_code = html_template.replace("__MESSAGE__", json.dumps(message))
+    """,
+    unsafe_allow_html=True,
+)
 
 # ---------------------------------------------------------------
-# 3) Iframe height: tall enough for the FULL text.
-#    The iframe is transparent, so the visible box still grows
-#    smoothly while typing; this just stops it being clipped.
+# Typing animation: re-render the box with a bit more text each step
 # ---------------------------------------------------------------
-CHARS_PER_LINE = 38      # conservative (narrow screens wrap more)
-LINE_HEIGHT_PX = 27      # 1.125rem * 1.5
-wrapped_lines = sum(max(1, math.ceil(len(l) / CHARS_PER_LINE)) for l in lines)
-frame_height = 60 + 60 + 32 + 40 + wrapped_lines * LINE_HEIGHT_PX  # title + padding + margins + spare
+def render_box(text: str, typing: bool) -> str:
+    safe = html.escape(text).replace("\n", "<br>")
+    cursor_class = " cursor" if typing else ""
+    return (
+        '<div class="container-box">'
+        "<h1>Fatma Magdy's Birthday!</h1>"
+        f'<div class="typed-text{cursor_class}">{safe}</div>'
+        "</div>"
+    )
 
-#components.html(html_code, height=frame_height, scrolling=False)
+placeholder = st.empty()
+chars = list(message)  # keeps emojis intact
+
+for i in range(CHARS_PER_STEP, len(chars) + CHARS_PER_STEP, CHARS_PER_STEP):
+    placeholder.markdown(render_box("".join(chars[:i]), typing=True), unsafe_allow_html=True)
+    time.sleep(TYPING_DELAY)
+
+# Final render without the blinking cursor
+placeholder.markdown(render_box(message, typing=False), unsafe_allow_html=True)
