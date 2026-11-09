@@ -50,7 +50,7 @@ with col1:
     components.html(wd.html_code, height=550)
 
 with col2:
-    time.sleep(21)
+    time.sleep(38)
     components.html(
    """
        <body>
