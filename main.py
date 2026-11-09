@@ -19,6 +19,9 @@ def img_to_base64(path: str) -> str:
 # Each components.html call renders in its own iframe, so the page CSS
 # can't reach it. This template carries its own styles.
 TYPING_IFRAME_TEMPLATE = """
+<head>
+    <meta name="color-scheme" content="light">
+</head>
 <body>
     <div class="typing-box">
         <div id="code">
@@ -27,15 +30,13 @@ TYPING_IFRAME_TEMPLATE = """
     </div>
 
     <style>
-        body { margin: 0; background: transparent; }
+        html, body { margin: 0; background: transparent !important; }
         .typing-box {
             width: 100%;
-            max-width: 500px;
-            margin: 8px auto;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-            background: rgba(59, 60, 54, 0.6);
-            border-radius: 15px;
+            background: none;
         }
         #code .say {
             text-align: center;
@@ -124,6 +125,12 @@ page_element = f"""
 
 [data-testid="stAppViewContainer"] > .main {{
     background-color: transparent;
+}}
+
+/* Make the components.html iframes fully transparent (no backdrop behind the text) */
+iframe {{
+    background: transparent !important;
+    color-scheme: light;
 }}
 </style>
 """
