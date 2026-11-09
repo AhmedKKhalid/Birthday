@@ -12,20 +12,30 @@ import time
 import base64
 st.set_page_config(layout="wide")
 
+image_path = r"Gemini_Generated_Image_lyf48xlyf48xlyf4.jpg"
 
-page_element="""
+with open(image_path, "rb") as image_file:
+    encoded_image = base64.b64encode(image_file.read()).decode()
+
+page_element = f"""
 <style>
-[data-testid="stAppViewContainer"]{
-  background-image: url("https://images.pexels.com/photos/696271/pexels-photo-696271.jpeg");
-  background-size: cover;
-}
-[data-testid="stHeader"]{
-  background-color: rgba(0,0,0,0);
-}
+[data-testid="stAppViewContainer"] {{
+    background-image: url("data:image/jpeg;base64,{encoded_image}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}}
+
+[data-testid="stHeader"] {{
+    background-color: rgba(0,0,0,0);
+}}
+
+[data-testid="stAppViewContainer"] > .main {{
+    background-color: transparent;
+}}
 </style>
 """
-
-
 
 st.markdown(page_element, unsafe_allow_html=True)
 st.balloons()
