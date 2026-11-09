@@ -1,5 +1,6 @@
 import base64
 import html
+import os
 import random
 import time
 
@@ -161,6 +162,13 @@ FX_CSS = """
     animation: stage-in 2.5s ease-out both;
 }
 @keyframes stage-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- Music player (small, floating, bottom-left) ---------- */
+[data-testid="stAudio"] {
+    position: fixed; left: 16px; bottom: 16px; width: 280px; z-index: 60;
+    opacity: .9; border-radius: 30px;
+    animation: stage-in 2.5s ease-out both;
+}
 
 /* ---------- Aurora glow ---------- */
 .bd-aurora { z-index: 2; }
@@ -561,4 +569,14 @@ typing_iframe(
 time.sleep(7)
 st.markdown(FX_CSS, unsafe_allow_html=True)
 st.markdown(build_fx_html(), unsafe_allow_html=True)
+
+AUDIO_PATH = "aud.mp3"
+if os.path.exists(AUDIO_PATH):
+    try:
+        st.audio(AUDIO_PATH, format="audio/mpeg", autoplay=True)
+    except TypeError:  # older Streamlit without the autoplay argument
+        st.audio(AUDIO_PATH, format="audio/mpeg")
+else:
+    st.warning(f"Audio file not found: {AUDIO_PATH}")
+
 st.balloons()
