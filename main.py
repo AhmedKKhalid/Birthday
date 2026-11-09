@@ -138,6 +138,50 @@ iframe {{
 """
 
 st.markdown(page_element, unsafe_allow_html=True)
+
+# ---------------------------------------------------------------
+# Start gate: browsers only allow sound to autoplay after the visitor
+# has interacted with the page, so the show begins when she clicks.
+# ---------------------------------------------------------------
+if "started" not in st.session_state:
+    st.session_state.started = False
+
+if not st.session_state.started:
+    st.markdown(
+        """
+        <style>
+        @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+        @keyframes spin-angle { to { --angle: 360deg; } }
+        @keyframes gift-pulse {
+            0%, 100% { scale: 1;    box-shadow: 0 0 20px rgb(244 114 182 / .5); }
+            50%      { scale: 1.07; box-shadow: 0 0 50px rgb(96 165 250 / .8); }
+        }
+        .gate-title {
+            text-align: center; margin-top: 28vh; margin-bottom: 18px;
+            font: 800 2rem 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(var(--angle), #bef264, #fcd34d, #f472b6, #60a5fa, #bef264);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: spin-angle 4s linear infinite;
+        }
+        .stButton { display: flex; justify-content: center; }
+        .stButton > button {
+            font-size: 1.4rem; font-weight: 700; padding: .8rem 2.2rem;
+            color: white; border: 2px solid rgb(255 255 255 / .6); border-radius: 40px;
+            background: linear-gradient(var(--angle), #f472b6, #a78bfa, #60a5fa, #f472b6);
+            animation: spin-angle 4s linear infinite, gift-pulse 1.8s ease-in-out infinite;
+        }
+        .stButton > button:hover { color: white; border-color: white; }
+        </style>
+        <div class="gate-title">A special surprise is waiting for you 🎁</div>
+        """,
+        unsafe_allow_html=True,
+    )
+    if st.button("🎁 Open your gift"):
+        st.session_state.started = True
+        st.rerun()
+    st.stop()
+
 st.balloons()
 
 # ---------------------------------------------------------------
