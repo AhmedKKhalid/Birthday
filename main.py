@@ -138,7 +138,7 @@ with col1:
     # Final render without the blinking cursor
     placeholder.markdown(render_box(message, typing=False), unsafe_allow_html=True)
 with col2:
-    time.sleep(38)
+   # time.sleep(38)
     components.html(
    """
        <body>
