@@ -156,7 +156,11 @@ FX_CSS = """
 @keyframes spin-angle { to { --angle: 360deg; } }
 @keyframes hue-cycle  { to { --hue: 360; } }
 
-.bd-fx { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 50; }
+.bd-fx {
+    position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 50;
+    animation: stage-in 2.5s ease-out both;
+}
+@keyframes stage-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* ---------- Aurora glow ---------- */
 .bd-aurora { z-index: 2; }
@@ -425,9 +429,6 @@ def build_fx_html(seed: int = 26) -> str:
     )
 
 
-st.markdown(FX_CSS, unsafe_allow_html=True)
-st.markdown(build_fx_html(), unsafe_allow_html=True)
-
 col1, col2, col3 = st.columns(3)
 time.sleep(2)
 
@@ -553,5 +554,11 @@ typing_iframe(
     height=140,
 )
 
-time.sleep(4)
+# ---------------------------------------------------------------
+# Launch the birthday FX only now, after every widget has appeared.
+# The caption above types for ~7s, so wait for it to finish first.
+# ---------------------------------------------------------------
+time.sleep(7)
+st.markdown(FX_CSS, unsafe_allow_html=True)
+st.markdown(build_fx_html(), unsafe_allow_html=True)
 st.balloons()
